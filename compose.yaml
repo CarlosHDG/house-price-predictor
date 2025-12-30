@@ -1,0 +1,29 @@
+services:
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fastapi
+    ports:
+      - '8000:8000'
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - mlops-net
+  
+  streamlit:
+    build:
+      context: ./streamlit_app
+      dockerfile: Dockerfile
+    container_name: streamlit
+    ports:
+      - '8501:8501'
+    depends_on:
+      - fastapi
+    environment:
+      - API_URL=http://fastapi:8000
+    networks:
+      - mlops-net
+networks:
+  mlops-net:
+    driver: bridge
