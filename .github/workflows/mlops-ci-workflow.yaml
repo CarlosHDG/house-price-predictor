@@ -27,13 +27,13 @@ jobs:
       - name: Run data Processing
         run: |
           python src/data/run_processing.py \
-          --input data/raw/house_data.csv \ 
+          --input data/raw/house_data.csv \
           --output data/processed/cleaned_house_data.csv
       
       - name: Run feature engineering
         run: |
           python src/data/features/engineer.py \
-          --input data/processed/cleaned_house_data.csv \ 
+          --input data/processed/cleaned_house_data.csv \
           --output data/processed/featured_house_data.csv \
           --preprocessor models/trained/preprocessor.pkl
       - name: Setup MLflow
