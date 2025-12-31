@@ -23,3 +23,29 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      
+      - name: Run data Processing
+        run: |
+          python src/data/run_processing.py \
+           --input data/raw/house_data.csv \ 
+           --output data/processed/cleaned_house_data.csv
+      
+      - name: Run feature engineering
+        run: |
+          python src/data/features/engineer.py \
+          --input data/processed/cleaned_house_data.csv \ 
+          --output data/processed/featured_house_data.csv \
+          --preprocessor models/trained/preprocessor.pkl
+      - name: Setup MLflow
+        run: |
+          docker compose -f deployment/mlflow/docker-compose.yaml up -d
+      - name: Train model
+        run: |
+          python src/models/train_model.py \
+          --config configs/model_config.yaml \
+          --data data/processed/featured_house_data.csv \
+          --models-dir models/trained/house_price_model.pkl \
+          --mlflow-tracking-uri http://localhost:5555
+      - name: Cleaning up MLflow
+        run: |
+          docker compose down -rmi all 

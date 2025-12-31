@@ -80,8 +80,16 @@ def process_data(input_file, output_file):
     return df_cleaned
 
 if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Data processing for raw data")
+    parser.add_argument("--input",default="data/raw/house_data.csv",help="Input path")
+    parser.add_argument("--output",default="data/processed/cleaned_house_data.csv",help="Output path")
+
+    args=parser.parse_args()
+
     # Example usage
     process_data(
-        input_file="data/raw/house_data.csv", 
-        output_file="data/processed/cleaned_house_data.csv"
+        input_file=args.input, 
+        output_file=args.output
     )
