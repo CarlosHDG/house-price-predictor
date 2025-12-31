@@ -48,4 +48,4 @@ jobs:
           --mlflow-tracking-uri http://localhost:5555
       - name: Cleaning up MLflow
         run: |
-          docker compose down -rmi all 
+          docker compose down --rmi all
