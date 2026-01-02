@@ -7,14 +7,14 @@ on:
         description: 'Run all jobs'
         required: false
         default: 'true'
-      run_datprocessing:
+      run_data_processing:
         description: 'Run data processing job'
         required: false
         default: 'false'
       run_model_training:
-        description: 
-        required: 
-        default: 
+        description: 'Run model training job'
+        required: false
+        default: 'false'
       run_build_and_publish:
         description: 'Run build and publish job'
         required: false
