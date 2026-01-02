@@ -87,14 +87,17 @@ jobs:
         with:
           name: processed-data
           path: data/processed/
+
       - name: Setup MLflow
         run: |
           docker compose -f deployment/mlflow/docker-compose.yaml up -d
+
       - name: Wait for MLflow to start
         run: |
           for i in {1..10}; do
             curl -f http://localhost:5555/health || sleep 5;
           done
+
       - name: Train model
         run: |
           python src/models/train_model.py \
@@ -119,11 +122,13 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      
     - name: Download trained model
       uses: actions/download-artifact@v4
       with:
         name: trained-model
         path: models/
+
     - name: Download preprocessor
       uses: actions/download-artifact@v4
       with:
