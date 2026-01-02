@@ -83,7 +83,7 @@ jobs:
           pip install -r requirements.txt
       
       - name: Download processed data
-        run: actions/download-artifact@v4
+        uses: actions/download-artifact@v4
         with:
           name: processed-data
           path: data/processed/
@@ -107,7 +107,7 @@ jobs:
           --mlflow-tracking-uri http://localhost:5555
       
       - name: Upload trained model
-        uses: artifact/upload-artifact@v4
+        uses: actions/upload-artifact@v4
         with:
           name: trained-model
           path: models/
@@ -122,7 +122,7 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
+
     - name: Download trained model
       uses: actions/download-artifact@v4
       with:
